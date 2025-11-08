@@ -10,6 +10,7 @@ export default function LandingName() {
 				speed={80}
 				className="landing-name-text"
 			/>
+			<p className="landing-subtitle">Interested in all things cyber.</p>
 		</div>
 	);
 }
