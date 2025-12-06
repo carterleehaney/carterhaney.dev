@@ -1,19 +1,15 @@
-import './App.css';
-import NavBar from './components/NavBar/NavBar';
-import AboutMe from './components/AboutMe/AboutMe';
-import LandingName from './components/LandingName/LandingName';
-import CertificationsCarousel from './components/CertificationsCarousel/CertificationsCarousel';
-import Footer from './components/Footer/Footer';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
-    <div className="App">
-      <NavBar />
-      <LandingName />
-      <CertificationsCarousel />
-      <AboutMe />
-      <Footer />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
