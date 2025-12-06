@@ -40,7 +40,12 @@ jobs:
             
             # Move build to web root (requires sudo if needed)
             sudo rm -rf /var/www/html/*
-            sudo mv build/* /var/www/html/
+            sudo mv build/* /var/www/html/ 2>/dev/null || true
+
+            if [ -f build/.htaccess ]; then
+              sudo cp build/.htaccess /var/www/html/.htaccess
+              sudo chmod 644 /var/www/html/.htaccess
+            fi
             
             # Clean up
             cd ~
