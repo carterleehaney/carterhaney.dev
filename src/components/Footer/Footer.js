@@ -15,7 +15,7 @@ export default function Footer() {
 		},
 		{
 			name: 'Blog',
-			url: 'https://blog.carterhaney.com',
+			url: 'https://blog.carterhaney.dev',
 			icon: '✎'
 		},
 		{

@@ -17,7 +17,15 @@ export default function NavBar() {
 			</div>
 
 			<div className="navbar-right">
-				<a href="https://blog.carterhaney.com" className="blog-button" target="_blank" rel="noopener noreferrer">
+				<a
+					href="https://blog.carterhaney.dev"
+					className="blog-button"
+					target="_blank"
+					rel="noopener noreferrer"
+					style={{ pointerEvents: 'none', opacity: 0.5, cursor: 'not-allowed' }}
+					aria-disabled="true"
+					tabIndex={-1}
+				>
 					Blog
 				</a>
 			</div>

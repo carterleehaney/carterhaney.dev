@@ -1,4 +1,4 @@
-name: Deploy to carterhaney.com
+name: Deploy to carterhaney.dev
 
 on:
   push:
@@ -21,10 +21,10 @@ jobs:
           chmod 600 ~/.ssh/deploy_key
           
           # Add server to known hosts
-          ssh-keyscan carterhaney.com >> ~/.ssh/known_hosts
+          ssh-keyscan carterhaney.dev >> ~/.ssh/known_hosts
           
           # SSH into server and deploy
-          ssh -i ~/.ssh/deploy_key carterleehaney@carterhaney.com << 'ENDSSH'
+          ssh -i ~/.ssh/deploy_key carterleehaney@carterhaney.dev << 'ENDSSH'
             set -e
             
             # Create temporary directory for deployment
@@ -32,7 +32,7 @@ jobs:
             cd $DEPLOY_DIR
             
             # Clone the repository
-            git clone https://github.com/carterleehaney/carterhaney.com.git .
+            git clone https://github.com/carterleehaney/carterhaney.dev.git .
             
             # Install dependencies and build
             npm install
