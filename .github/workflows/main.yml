@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: Deploy to server
+      - name: Deploy to server.
         env:
           SSH_PRIVATE_KEY: ${{ secrets.MAIN_KEY }}
         run: |
@@ -21,35 +21,23 @@ jobs:
           chmod 600 ~/.ssh/deploy_key
           
           # Add server to known hosts
-          ssh-keyscan 34.138.0.211 >> ~/.ssh/known_hosts
+          ssh-keyscan 150.252.181.95 >> ~/.ssh/known_hosts
           
           # SSH into server and deploy
-          ssh -i ~/.ssh/deploy_key carterleehaney@34.138.0.211 << 'ENDSSH'
+          ssh -i ~/.ssh/deploy_key carterleehaney@150.252.181.95 << 'ENDSSH'
             set -e
             
-            # Create temporary directory for deployment
-            DEPLOY_DIR=$(mktemp -d)
-            cd $DEPLOY_DIR
+            cd ~/carterhaney.dev
             
-            # Clone the repository
-            git clone https://github.com/carterleehaney/carterhaney.dev.git .
+            # Pull latest changes
+            git pull origin main
             
-            # Install dependencies and build
-            npm install
-            npm run build
+            # Rebuild and restart container
+            docker compose down
+            docker compose up -d --build
             
-            # Move build to web root (requires sudo if needed)
-            sudo rm -rf /var/www/html/*
-            sudo mv build/* /var/www/html/ 2>/dev/null || true
-
-            if [ -f build/.htaccess ]; then
-              sudo cp build/.htaccess /var/www/html/.htaccess
-              sudo chmod 644 /var/www/html/.htaccess
-            fi
-            
-            # Clean up
-            cd ~
-            rm -rf $DEPLOY_DIR
+            # Clean up old images
+            docker image prune -f
             
             echo "Deployment completed successfully!"
           ENDSSH
