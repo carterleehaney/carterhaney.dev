@@ -1,4 +1,4 @@
-### `carterhaney.dev`
-Repository for my website project.
+## `carterhaney.dev`
+Repository for my website, showcasing my projects, certifications, and more.
 
-Template created with `create-react-app`
+Built with React.js, deployed with Docker.
