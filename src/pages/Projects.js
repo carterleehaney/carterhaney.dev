@@ -6,8 +6,13 @@ import Footer from '../components/Footer/Footer';
 function Projects() {
 	const projects = [
 		{
+			name: 'Tomoe',
+			description: 'Cross-Platform Windows administration tool. Built in Python, utilizes WinRM and SMB for command execution, script execution, and file transfer.',
+			url: 'https://github.com/carterleehaney/Tomoe'
+		},
+		{
 			name: 'carterhaney.dev',
-			description: 'My personal website, built with React.js and hosted on GCP.',
+			description: 'My personal website, built with React.js and hosted on my own server.',
 			url: 'https://github.com/carterleehaney/carterhaney.dev'
 		}
 	];
