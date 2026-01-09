@@ -23,8 +23,6 @@ export default function NavBar() {
 					className="blog-button"
 					target="_blank"
 					rel="noopener noreferrer"
-					style={{ pointerEvents: 'none', opacity: 0.5, cursor: 'not-allowed' }}
-					aria-disabled="true"
 					tabIndex={-1}
 				>
 					Blog
