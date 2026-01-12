@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import './CertificationsCarousel.css';
 
 export default function CertificationsCarousel() {
@@ -30,56 +30,62 @@ export default function CertificationsCarousel() {
 	];
 
 	const [currentIndex, setCurrentIndex] = useState(0);
-	const [isTransitioning, setIsTransitioning] = useState(false);
-	const touchStartX = useRef(0);
-	const touchEndX = useRef(0);
-	const carouselRef = useRef(null);
+	const [isPaused, setIsPaused] = useState(false);
+	const autoPlayTimerRef = useRef(null);
+	const touchStartRef = useRef(0);
+	const touchEndRef = useRef(0);
 
-	// Navigation functions with infinite looping
-	const getCircularIndex = useCallback((index) => {
-		const length = certifications.length;
-		return ((index % length) + length) % length;
+	// Navigate to next slide
+	const nextSlide = useCallback(() => {
+		setCurrentIndex((prev) => (prev + 1) % certifications.length);
 	}, [certifications.length]);
 
-	const goToSlide = useCallback((index) => {
-		if (isTransitioning) return;
-		setIsTransitioning(true);
-		setCurrentIndex(getCircularIndex(index));
-		setTimeout(() => setIsTransitioning(false), 50);
-	}, [isTransitioning, getCircularIndex]);
-
-	const nextSlide = useCallback(() => {
-		goToSlide(currentIndex + 1);
-	}, [currentIndex, goToSlide]);
-
+	// Navigate to previous slide
 	const prevSlide = useCallback(() => {
-		goToSlide(currentIndex - 1);
-	}, [currentIndex, goToSlide]);
+		setCurrentIndex((prev) => (prev - 1 + certifications.length) % certifications.length);
+	}, [certifications.length]);
 
-	// Touch event handlers for swipe navigation
-	const handleTouchStart = (e) => {
-		touchStartX.current = e.touches[0].clientX;
-	};
+	// Navigate to specific slide
+	const goToSlide = useCallback((index) => {
+		setCurrentIndex(index);
+	}, []);
 
-	const handleTouchMove = (e) => {
-		touchEndX.current = e.touches[0].clientX;
-	};
+	// Auto-play effect
+	useEffect(() => {
+		if (isPaused) return;
 
-	const handleTouchEnd = () => {
-		const swipeThreshold = 50;
-		const diff = touchStartX.current - touchEndX.current;
+		autoPlayTimerRef.current = setInterval(() => {
+			nextSlide();
+		}, 5000);
 
-		if (Math.abs(diff) > swipeThreshold) {
+		return () => {
+			if (autoPlayTimerRef.current) {
+				clearInterval(autoPlayTimerRef.current);
+			}
+		};
+	}, [isPaused, nextSlide]);
+
+	// Touch handlers
+	const handleTouchStart = useCallback((e) => {
+		touchStartRef.current = e.touches[0].clientX;
+	}, []);
+
+	const handleTouchMove = useCallback((e) => {
+		touchEndRef.current = e.touches[0].clientX;
+	}, []);
+
+	const handleTouchEnd = useCallback(() => {
+		const diff = touchStartRef.current - touchEndRef.current;
+		const threshold = 50;
+
+		if (Math.abs(diff) > threshold) {
 			if (diff > 0) {
 				nextSlide();
 			} else {
 				prevSlide();
 			}
 		}
-
-		touchStartX.current = 0;
-		touchEndX.current = 0;
-	};
+	}, [nextSlide, prevSlide]);
 
 	// Keyboard navigation
 	useEffect(() => {
@@ -97,151 +103,98 @@ export default function CertificationsCarousel() {
 		return () => window.removeEventListener('keydown', handleKeyDown);
 	}, [nextSlide, prevSlide]);
 
-	// Get the slides to display (previous, current, next)
-	const getVisibleSlides = () => {
-		const prevIndex = getCircularIndex(currentIndex - 1);
-		const nextIndex = getCircularIndex(currentIndex + 1);
+	// Get slide position class
+	const getSlidePosition = useCallback((index) => {
+		const diff = (index - currentIndex + certifications.length) % certifications.length;
 
-		return {
-			prev: certifications[prevIndex],
-			current: certifications[currentIndex],
-			next: certifications[nextIndex]
-		};
-	};
-
-	const visibleSlides = getVisibleSlides();
+		if (diff === 0) return 'current';
+		if (diff === 1 || diff === -(certifications.length - 1)) return 'next';
+		if (diff === certifications.length - 1 || diff === -1) return 'prev';
+		return 'hidden';
+	}, [currentIndex, certifications.length]);
 
 	return (
 		<div id="certifications" className="certifications-carousel">
 			<h2 className="carousel-title">Certifications</h2>
-			
-			<div 
-				className="carousel-container"
-				role="region"
-				aria-label="Certifications carousel"
-				aria-live="polite"
-				ref={carouselRef}
+
+			<div
+				className="carousel-wrapper"
+				onMouseEnter={() => setIsPaused(true)}
+				onMouseLeave={() => setIsPaused(false)}
 			>
-				{/* Desktop navigation arrows */}
 				<button
-					className="carousel-arrow carousel-arrow-left"
+					className="carousel-nav carousel-nav-prev"
 					onClick={prevSlide}
 					aria-label="Previous certification"
-					disabled={isTransitioning}
 				>
 					<span aria-hidden="true">◀</span>
 				</button>
 
-				{/* Carousel track */}
-				<div 
-					className="carousel-track"
+				<div
+					className="carousel-viewport"
 					onTouchStart={handleTouchStart}
 					onTouchMove={handleTouchMove}
 					onTouchEnd={handleTouchEnd}
 				>
-					{/* Previous slide */}
-					<div key={`prev-${visibleSlides.prev.id}`} className="carousel-slide carousel-slide-prev">
-						<div className="certification-card">
-							<img 
-								src={visibleSlides.prev.image} 
-								alt={visibleSlides.prev.title}
-								className="certification-image"
-							/>
-							<div className="certification-info">
-								<h3 className="certification-title">{visibleSlides.prev.title}</h3>
-								<p className="certification-issuer">{visibleSlides.prev.issuer}</p>
-								<p className="certification-year">{visibleSlides.prev.year}</p>
-							</div>
-							{visibleSlides.prev.verificationLink && (
-								<a 
-									href={visibleSlides.prev.verificationLink} 
-									target="_blank" 
-									rel="noopener noreferrer"
-									className="verification-badge"
-									aria-label={`Verify ${visibleSlides.prev.title} certification`}
-									tabIndex="-1"
-								>
-									✓
-								</a>
-							)}
-						</div>
-					</div>
+					<div className="carousel-slides">
+						{certifications.map((cert, index) => {
+							const position = getSlidePosition(index);
 
-					{/* Current slide (centered) */}
-					<div key={`current-${visibleSlides.current.id}`} className="carousel-slide carousel-slide-current">
-						<div className="certification-card">
-							<img 
-								src={visibleSlides.current.image} 
-								alt={visibleSlides.current.title}
-								className="certification-image"
-							/>
-							<div className="certification-info">
-								<h3 className="certification-title">{visibleSlides.current.title}</h3>
-								<p className="certification-issuer">{visibleSlides.current.issuer}</p>
-								<p className="certification-year">{visibleSlides.current.year}</p>
-							</div>
-							{visibleSlides.current.verificationLink && (
-								<a 
-									href={visibleSlides.current.verificationLink} 
-									target="_blank" 
-									rel="noopener noreferrer"
-									className="verification-badge"
-									aria-label={`Verify ${visibleSlides.current.title} certification`}
+							return (
+								<div
+									key={cert.id}
+									className={`carousel-slide slide-${position}`}
+									aria-hidden={position !== 'current'}
 								>
-									✓
-								</a>
-							)}
-						</div>
-					</div>
-
-					{/* Next slide */}
-					<div key={`next-${visibleSlides.next.id}`} className="carousel-slide carousel-slide-next">
-						<div className="certification-card">
-							<img 
-								src={visibleSlides.next.image} 
-								alt={visibleSlides.next.title}
-								className="certification-image"
-							/>
-							<div className="certification-info">
-								<h3 className="certification-title">{visibleSlides.next.title}</h3>
-								<p className="certification-issuer">{visibleSlides.next.issuer}</p>
-								<p className="certification-year">{visibleSlides.next.year}</p>
-							</div>
-							{visibleSlides.next.verificationLink && (
-								<a 
-									href={visibleSlides.next.verificationLink} 
-									target="_blank" 
-									rel="noopener noreferrer"
-									className="verification-badge"
-									aria-label={`Verify ${visibleSlides.next.title} certification`}
-									tabIndex="-1"
-								>
-									✓
-								</a>
-							)}
-						</div>
+									<div className="cert-card">
+										<div className="cert-image-container">
+											<img
+												src={cert.image}
+												alt={position === 'current' ? cert.title : ''}
+												className="cert-image"
+												loading="lazy"
+											/>
+										</div>
+										<div className="cert-content">
+											<h3 className="cert-title">{cert.title}</h3>
+											<p className="cert-issuer">{cert.issuer}</p>
+											<p className="cert-year">{cert.year}</p>
+										</div>
+										{cert.verificationLink && (
+											<a
+												href={cert.verificationLink}
+												target="_blank"
+												rel="noopener noreferrer"
+												className="cert-verify"
+												aria-label={`Verify ${cert.title} certification`}
+												tabIndex={position === 'current' ? 0 : -1}
+											>
+												✓
+											</a>
+										)}
+									</div>
+								</div>
+							);
+						})}
 					</div>
 				</div>
 
-				{/* Desktop navigation arrows */}
 				<button
-					className="carousel-arrow carousel-arrow-right"
+					className="carousel-nav carousel-nav-next"
 					onClick={nextSlide}
 					aria-label="Next certification"
-					disabled={isTransitioning}
 				>
 					<span aria-hidden="true">▶</span>
 				</button>
 
-				{/* Dots indicator */}
-				<div className="carousel-dots">
+				<div className="carousel-indicators">
 					{certifications.map((_, index) => (
 						<button
 							key={index}
-							className={`carousel-dot ${index === currentIndex ? 'active' : ''}`}
+							className={`indicator ${index === currentIndex ? 'active' : ''}`}
 							onClick={() => goToSlide(index)}
-							aria-label={`Go to slide ${index + 1}`}
-							aria-current={index === currentIndex ? 'true' : 'false'}
+							aria-label={`Go to certification ${index + 1}`}
+							aria-current={index === currentIndex}
 						/>
 					))}
 				</div>
