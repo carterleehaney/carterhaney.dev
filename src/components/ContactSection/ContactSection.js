@@ -22,6 +22,11 @@ export default function ContactSection() {
 			name: 'Twitter',
 			url: 'https://x.com/divinelumina',
 			icon: '𝕏'
+		},
+		{
+			name: 'HackTheBox',
+			url: 'https://app.hackthebox.com/users/2207103',
+			icon: 'htb'
 		}
 	];
 
@@ -58,7 +63,13 @@ export default function ContactSection() {
 							className="contact-social-link"
 							aria-label={link.name}
 						>
-							<span className="social-icon">{link.icon}</span>
+							<span className="social-icon">
+								{link.icon === 'htb' ? (
+									<img src="/images/assets/htb.jpeg" alt="HackTheBox" className="htb-icon" />
+								) : (
+									link.icon
+								)}
+							</span>
 							<span className="social-label">{link.name}</span>
 						</a>
 					))}

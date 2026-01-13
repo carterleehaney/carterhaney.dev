@@ -141,6 +141,20 @@
 	opacity: 1;
 }
 
+/* HackTheBox icon */
+.social-icon .htb-icon {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	border-radius: 50%;
+	filter: grayscale(100%);
+	transition: filter 0.3s ease;
+}
+
+.contact-social-link:hover .htb-icon {
+	filter: grayscale(0%);
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
 	.contact-section {

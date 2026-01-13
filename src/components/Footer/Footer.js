@@ -22,6 +22,11 @@ export default function Footer() {
 			name: 'Twitter',
 			url: 'https://x.com/divinelumina',
 			icon: '𝕏'
+		},
+		{
+			name: 'HackTheBox',
+			url: 'https://app.hackthebox.com/users/2207103',
+			icon: 'htb'
 		}
 	];
 
@@ -38,7 +43,13 @@ export default function Footer() {
 							className="footer-link"
 							aria-label={link.name}
 						>
-							<span className="footer-icon">{link.icon}</span>
+							<span className="footer-icon">
+								{link.icon === 'htb' ? (
+									<img src="/images/assets/htb.jpeg" alt="HackTheBox" className="htb-icon" />
+								) : (
+									link.icon
+								)}
+							</span>
 							<span className="footer-label">{link.name}</span>
 						</a>
 					))}
