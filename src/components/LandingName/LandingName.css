@@ -31,10 +31,68 @@
 	max-width: 800px;
 }
 
+/* CTA Buttons */
+.landing-cta {
+	display: flex;
+	gap: 1.25rem;
+	margin-top: 2.5rem;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.cta-button {
+	font-family: 'Bitcount Grid Single', 'SF Mono', 'Monaco', 'Cascadia Code', 'Roboto Mono', monospace;
+	font-size: 1rem;
+	font-weight: 500;
+	padding: 0.875rem 2rem;
+	border-radius: 4px;
+	text-decoration: none;
+	letter-spacing: 0.03em;
+	transition: all 0.3s ease;
+	cursor: pointer;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.cta-primary {
+	background: #ffffff;
+	color: #000000;
+	border: 2px solid #ffffff;
+}
+
+.cta-primary:hover {
+	background: transparent;
+	color: #ffffff;
+	transform: translateY(-2px);
+	box-shadow: 0 4px 20px rgba(255, 255, 255, 0.15);
+}
+
+.cta-secondary {
+	background: transparent;
+	color: #ffffff;
+	border: 2px solid rgba(255, 255, 255, 0.4);
+}
+
+.cta-secondary:hover {
+	border-color: #ffffff;
+	transform: translateY(-2px);
+	box-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
 	.landing-name-text {
 		font-size: 3rem;
+	}
+
+	.landing-cta {
+		gap: 1rem;
+	}
+
+	.cta-button {
+		padding: 0.75rem 1.5rem;
+		font-size: 0.95rem;
 	}
 }
 
@@ -49,5 +107,16 @@
 
 	.landing-subtitle {
 		font-size: 1.25rem;
+	}
+
+	.landing-cta {
+		flex-direction: column;
+		width: 100%;
+		max-width: 280px;
+	}
+
+	.cta-button {
+		width: 100%;
+		justify-content: center;
 	}
 }

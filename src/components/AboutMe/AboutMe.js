@@ -7,7 +7,7 @@ export default function AboutMe() {
 			<div className="about-content">
 				<h1 className="about-title">About Me</h1>
 				<p className="about-paragraph">
-					Hi! I'm Carter, a soon-to-be graduate with a Bachelor's degree in Computer Science from
+					Hi! I'm Carter, a soon-to-be graduate with a bachelor's degree in computer science from
                     Tennessee Tech University. I love cybersecurity, particularly offsensive security and defensive tooling.
                     I also enjoy building infrastructure and scaling cloud environments.
                 </p>

@@ -3,7 +3,7 @@ import NavBar from '../components/NavBar/NavBar';
 import AboutMe from '../components/AboutMe/AboutMe';
 import LandingName from '../components/LandingName/LandingName';
 import CertificationsCarousel from '../components/CertificationsCarousel/CertificationsCarousel';
-import Footer from '../components/Footer/Footer';
+import ContactSection from '../components/ContactSection/ContactSection';
 
 function Home() {
   return (
@@ -12,7 +12,7 @@ function Home() {
       <LandingName />
       <CertificationsCarousel />
       <AboutMe />
-      <Footer />
+      <ContactSection />
     </div>
   );
 }

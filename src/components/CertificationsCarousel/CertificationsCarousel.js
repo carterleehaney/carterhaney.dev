@@ -17,7 +17,8 @@ export default function CertificationsCarousel() {
 			image: '/images/certifications/securityplus.png',
 			issuer: 'CompTIA',
 			year: 'June 2025',
-			verificationLink: 'https://linkedin.com/in/carterhaney'
+			verificationLink: 'https://linkedin.com/in/carterhaney',
+			whiteBg: true
 		},
 		{
 			id: 3,
@@ -147,7 +148,7 @@ export default function CertificationsCarousel() {
 									aria-hidden={position !== 'current'}
 								>
 									<div className="cert-card">
-										<div className="cert-image-container">
+										<div className={`cert-image-container${cert.whiteBg ? ' white-bg' : ''}`}>
 											<img
 												src={cert.image}
 												alt={position === 'current' ? cert.title : ''}
