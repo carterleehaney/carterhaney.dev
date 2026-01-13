@@ -10,9 +10,8 @@ export default function NavBar() {
 			<div className="navbar-center">
 				<ul className="navbar-links">
 					<li><a href="/">Home</a></li>
-					<li><a href="/#certifications">Certifications</a></li>
-					<li><a href="/#about">About Me</a></li>
-					<li><a href="/projects">Projects</a></li>
+					<li><a href="/certifications">/certifications</a></li>
+					<li><a href="/projects">/projects</a></li>
 					<li><a href={`${process.env.PUBLIC_URL || ''}/resume.pdf`}>Resume</a></li>
 				</ul>
 			</div>
