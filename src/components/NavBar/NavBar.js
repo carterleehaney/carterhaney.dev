@@ -22,6 +22,7 @@ export default function NavBar() {
 					<li><a href="/">Home</a></li>
 					<li><a href="/certifications">/certifications</a></li>
 					<li><a href="/projects">/projects</a></li>
+					<li><a href="/chat">/chat</a></li>
 					<li><a href={`${process.env.PUBLIC_URL || ''}/resume.pdf`}>/resume</a></li>
 				</ul>
 			</div>
