@@ -4,6 +4,14 @@ import './CertificationsCarousel.css';
 export default function CertificationsCarousel() {
 	const certifications = [
 		{
+			id: 4,
+			title: 'Certified Penetration Testing Specialist',
+			image: '/images/certifications/cpts.png',
+			issuer: 'Hack The Box',
+			year: 'February 25, 2026',
+			verificationLink: 'https://www.credly.com/badges/b94ea29f-4849-46a3-8fca-32ebdfcb852f/public_url'
+		},
+		{
 			id: 1,
 			title: 'Certified Red Team Operator',
 			image: '/images/certifications/rto.jpg',
