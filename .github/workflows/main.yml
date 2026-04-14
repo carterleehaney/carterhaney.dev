@@ -21,10 +21,10 @@ jobs:
           chmod 600 ~/.ssh/deploy_key
           
           # Add server to known hosts
-          ssh-keyscan 150.252.181.95 >> ~/.ssh/known_hosts
+          ssh-keyscan 69.55.123.230 >> ~/.ssh/known_hosts
           
           # SSH into server and deploy
-          ssh -i ~/.ssh/deploy_key carter@150.252.181.95 << 'ENDSSH'
+          ssh -i ~/.ssh/deploy_key carter@69.55.123.230 << 'ENDSSH'
             set -e
             
             cd ~/carterhaney.dev
