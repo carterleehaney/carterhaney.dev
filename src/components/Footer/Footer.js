@@ -25,7 +25,7 @@ export default function Footer() {
 		},
 		{
 			name: 'HackTheBox',
-			url: 'https://app.hackthebox.com/users/2207103',
+			url: 'https://profile.hackthebox.com/profile/019c9563-b26f-71f0-beca-1a7416187181',
 			icon: 'htb'
 		}
 	];
