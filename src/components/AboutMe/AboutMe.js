@@ -7,14 +7,13 @@ export default function AboutMe() {
 			<div className="about-content">
 				<h1 className="about-title">About Me</h1>
 				<p className="about-paragraph">
-					Hi! I'm Carter, a soon-to-be graduate with a bachelor's degree in computer science from
-                    Tennessee Tech University. I love cybersecurity, particularly offsensive security and defensive tooling.
-                    I also enjoy building infrastructure and scaling cloud environments.
+					Hey, I'm Carter. I work in cybersecurity and am especially interested in offensive security,
+                    defensive tooling, infrastructure, and cloud environments.
                 </p>
                 <p className="about-paragraph">
-					Some more information about me, I enjoy writing, going on walks, and web development in my free time.
-                    I have three dogs, Cooper, Carley, and Charlie, who keep me pretty busy. Feel free to connect with me on
-                    LinkedIn, I'd love to network!
+					Outside of work, I enjoy writing, web development, going on walks, and spending time with my three
+                    dogs, Cooper, Carley, and Charlie. I'm always happy to meet new people and trade ideas, so feel free to
+                    reach out on LinkedIn.
 				</p>
 			</div>
 		</section>
