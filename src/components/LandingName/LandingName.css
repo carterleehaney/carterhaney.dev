@@ -1,10 +1,10 @@
+/* Landing Name styles with cursive font */
 .landing-name {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	min-height: 52vh;
-	padding: 3rem 2rem;
+	padding: 4rem 2rem 2rem;
 	gap: 1rem;
 }
 
@@ -15,11 +15,6 @@
 	color: #ffffff;
 	text-shadow: 0 2px 10px rgba(255, 255, 255, 0.2);
 	letter-spacing: 0.05em;
-}
-
-.landing-name h1 {
-	margin: 0;
-	line-height: 1.2;
 }
 
 .landing-subtitle {
@@ -36,10 +31,11 @@
 	max-width: 800px;
 }
 
+/* CTA Buttons */
 .landing-cta {
 	display: flex;
 	gap: 1.25rem;
-	margin-top: 2rem;
+	margin-top: 2.5rem;
 	flex-wrap: wrap;
 	justify-content: center;
 }
@@ -59,21 +55,39 @@
 	gap: 0.5rem;
 }
 
-.cta-button {
+.cta-primary {
 	background: #ffffff;
 	color: #000000;
 	border: 2px solid #ffffff;
 }
 
-.cta-button:hover {
+.cta-primary:hover {
 	background: transparent;
 	color: #ffffff;
 	transform: translateY(-2px);
 	box-shadow: 0 4px 20px rgba(255, 255, 255, 0.15);
 }
+
+.cta-secondary {
+	background: transparent;
+	color: #ffffff;
+	border: 2px solid rgba(255, 255, 255, 0.4);
+}
+
+.cta-secondary:hover {
+	border-color: #ffffff;
+	transform: translateY(-2px);
+	box-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
+}
+
+/* Responsive adjustments */
 @media (max-width: 768px) {
 	.landing-name-text {
 		font-size: 3rem;
+	}
+
+	.landing-cta {
+		gap: 1rem;
 	}
 
 	.cta-button {
@@ -95,7 +109,17 @@
 		font-size: 1.25rem;
 	}
 
+	.landing-cta {
+		flex-direction: column;
+		align-items: center;
+		width: 100%;
+		padding: 0 1rem;
+	}
+
 	.cta-button {
+		width: 100%;
+		max-width: 280px;
 		justify-content: center;
+		text-align: center;
 	}
 }

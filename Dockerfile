@@ -6,8 +6,8 @@ WORKDIR /app
 # Copy package files
 COPY package*.json ./
 
-# Install locked dependencies
-RUN npm ci
+# Install dependencies
+RUN npm install
 
 # Copy source code
 COPY . .
@@ -24,7 +24,8 @@ COPY --from=build /app/build /usr/share/nginx/html
 # Copy nginx config
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# Nginx listens on port 80 inside the container.
-EXPOSE 80
+# Expose port 3000
+EXPOSE 3000
 
 CMD ["nginx", "-g", "daemon off;"]
+
