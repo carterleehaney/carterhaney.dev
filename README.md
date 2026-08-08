@@ -1,4 +1,4 @@
 ## `carterhaney.dev`
-Repository for my website, showcasing my projects, certifications, and more.
+Repository for my personal website.
 
 Built with React.js, deployed with Docker.

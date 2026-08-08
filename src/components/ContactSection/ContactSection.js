@@ -1,4 +1,3 @@
-import React from 'react';
 import './ContactSection.css';
 
 export default function ContactSection() {
@@ -14,36 +13,24 @@ export default function ContactSection() {
 			icon: 'gh'
 		},
 		{
-			name: 'Blog',
-			url: 'https://blog.carterhaney.dev',
-			icon: '✎'
-		},
-		{
-			name: 'Twitter',
+			name: 'X',
 			url: 'https://x.com/divinelumina',
-			icon: '𝕏'
-		},
-		{
-			name: 'HackTheBox',
-			url: 'https://app.hackthebox.com/users/2207103',
-			icon: 'htb'
+			icon: 'x'
 		}
 	];
 
 	return (
-		<section id="contact" className="contact-section">
+		<footer id="contact" className="contact-section">
 			<div className="contact-content">
-				<h2 className="contact-title">Let's Connect</h2>
+				<h2 className="contact-title">Let's connect</h2>
 				<p className="contact-intro">
-					Have a question, want to collaborate, or just want to say hello? 
-					I'd love to hear from you.
+					Want to swap ideas, talk shop, or just say hello? I'd love to hear from you.
 				</p>
 				
 				<a 
 					href="mailto:carterleehaney@outlook.com" 
 					className="contact-email-button"
 				>
-					<span className="email-icon">✉</span>
 					<span className="email-text">carterleehaney@outlook.com</span>
 				</a>
 
@@ -63,18 +50,12 @@ export default function ContactSection() {
 							className="contact-social-link"
 							aria-label={link.name}
 						>
-							<span className="social-icon">
-								{link.icon === 'htb' ? (
-									<img src="/images/assets/htb.jpeg" alt="HackTheBox" className="htb-icon" />
-								) : (
-									link.icon
-								)}
-							</span>
+							<span className="social-icon">{link.icon}</span>
 							<span className="social-label">{link.name}</span>
 						</a>
 					))}
 				</div>
 			</div>
-		</section>
+		</footer>
 	);
 }

@@ -10,19 +10,34 @@ export default function AnimatedTyping({
 }) {
 	const [displayedText, setDisplayedText] = useState('');
 	const [isTyping, setIsTyping] = useState(false);
+	const [prefersReducedMotion, setPrefersReducedMotion] = useState(
+		() => window.matchMedia('(prefers-reduced-motion: reduce)').matches
+	);
 
 	useEffect(() => {
-		// Reset when text changes
+		const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+		const handleChange = (event) => setPrefersReducedMotion(event.matches);
+
+		mediaQuery.addEventListener('change', handleChange);
+		return () => mediaQuery.removeEventListener('change', handleChange);
+	}, []);
+
+	useEffect(() => {
+		if (prefersReducedMotion) {
+			setDisplayedText(text);
+			setIsTyping(false);
+			return;
+		}
+
 		setDisplayedText('');
 		setIsTyping(false);
 
-		// Start after delay
 		const startTimer = setTimeout(() => {
 			setIsTyping(true);
 		}, startDelay);
 
 		return () => clearTimeout(startTimer);
-	}, [text, startDelay]);
+	}, [text, startDelay, prefersReducedMotion]);
 
 	useEffect(() => {
 		if (!isTyping) return;

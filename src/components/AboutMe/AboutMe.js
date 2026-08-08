@@ -1,20 +1,18 @@
-import React from 'react';
 import './AboutMe.css';
 
 export default function AboutMe() {
 	return (
 		<section id="about" className="about-me">
 			<div className="about-content">
-				<h1 className="about-title">About Me</h1>
+				<h2 className="about-title">About me</h2>
 				<p className="about-paragraph">
-					Hi! I'm Carter, a soon-to-be graduate with a bachelor's degree in computer science from
-                    Tennessee Tech University. I love cybersecurity, particularly offsensive security and defensive tooling.
-                    I also enjoy building infrastructure and scaling cloud environments.
-                </p>
-                <p className="about-paragraph">
-					Some more information about me, I enjoy writing, going on walks, and web development in my free time.
-                    I have three dogs, Cooper, Carley, and Charlie, who keep me pretty busy. Feel free to connect with me on
-                    LinkedIn, I'd love to network!
+					I'm Carter. I work in cybersecurity and enjoy offensive security, defensive tooling,
+					infrastructure, and cloud environments. Away from a keyboard, I like writing, taking walks,
+					and spending time with my three dogs, Cooper, Carley, and Charlie.
+				</p>
+				<p className="about-paragraph">
+					I'm always open to networking, swapping ideas, and meeting cool folks. If any of that
+					sounds like your kind of thing, say hello.
 				</p>
 			</div>
 		</section>
